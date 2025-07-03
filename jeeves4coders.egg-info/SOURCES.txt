@@ -1,0 +1,9 @@
+README.md
+setup.py
+jeeves4coders.egg-info/PKG-INFO
+jeeves4coders.egg-info/SOURCES.txt
+jeeves4coders.egg-info/dependency_links.txt
+jeeves4coders.egg-info/entry_points.txt
+jeeves4coders.egg-info/not-zip-safe
+jeeves4coders.egg-info/requires.txt
+jeeves4coders.egg-info/top_level.txt
