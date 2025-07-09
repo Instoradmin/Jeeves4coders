@@ -1,0 +1,28 @@
+# Engineering Automation Agent Requirements
+# Core dependencies for the automation agent
+
+# HTTP requests for API integrations
+requests>=2.25.0
+
+# YAML configuration support
+PyYAML>=5.4.0
+
+# Configuration file parsing
+configparser>=5.0.0
+
+# Data classes for Python < 3.7 compatibility
+dataclasses>=0.6;python_version<'3.7'
+
+# Optional dependencies for enhanced functionality
+# Install with: pip install -r requirements.txt -r requirements-optional.txt
+
+# Development dependencies (install with: pip install -r requirements-dev.txt)
+# pytest>=6.0.0
+# pytest-cov>=2.10.0
+# black>=21.0.0
+# flake8>=3.8.0
+# mypy>=0.800
+
+# Documentation dependencies (install with: pip install -r requirements-docs.txt)
+# sphinx>=3.0.0
+# sphinx-rtd-theme>=0.5.0

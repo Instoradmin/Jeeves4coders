@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "project_name": "engineering-automation-agent",
+  "project_root": "C:\\subbuworking\\gitdir\\engineering-automation-agent",
+  "auto_run_on_build": true,
+  "default_workflow": "code_quality",
+  "modules": {
+    "code_review": {
+      "enabled": true
+    },
+    "test_suite": {
+      "enabled": true
+    },
+    "github": {
+      "enabled": false
+    },
+    "jira": {
+      "enabled": false
+    },
+    "confluence": {
+      "enabled": false
+    }
+  }
+}

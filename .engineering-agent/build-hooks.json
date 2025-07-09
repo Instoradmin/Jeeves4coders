@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "hooks": {
+    "prebuild": {
+      "enabled": true,
+      "workflow": "code_quality",
+      "fail_on_error": false
+    },
+    "postbuild": {
+      "enabled": false,
+      "workflow": "reporting",
+      "fail_on_error": false
+    },
+    "pretest": {
+      "enabled": true,
+      "workflow": "test_suite",
+      "fail_on_error": true
+    }
+  },
+  "workflows": {
+    "code_quality": [
+      "code_review"
+    ],
+    "full_analysis": [
+      "code_review",
+      "test_suite"
+    ],
+    "reporting": [
+      "test_suite",
+      "confluence"
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "issues": [
+    {
+      "file_path": ".\\cli.py",
+      "line_number": 45,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'create_parser' is 72 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 43,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 122,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function '_analyze_ast' is 92 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 125,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Class 'CodeVisitor' missing docstring",
+      "suggestion": "Add docstring to document class purpose"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 126,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 133,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'visit_FunctionDef' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 171,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'visit_ClassDef' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\code_review.py",
+      "line_number": 197,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'visit_Import' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\code_review_module.py",
+      "line_number": 52,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\config_manager.py",
+      "line_number": 34,
+      "type": "large_class",
+      "severity": "warning",
+      "description": "Class 'ConfigurationManager' has 22 methods",
+      "suggestion": "Consider breaking into smaller classes"
+    },
+    {
+      "file_path": ".\\config_manager.py",
+      "line_number": 37,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\config_manager.py",
+      "line_number": 49,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function '_initialize_default_configs' is 87 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\confluence_module.py",
+      "line_number": 49,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\confluence_module.py",
+      "line_number": 266,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'update_page' is 51 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\confluence_module.py",
+      "line_number": 385,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function '_generate_test_results_content' is 54 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\core_agent.py",
+      "line_number": 80,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\core_agent.py",
+      "line_number": 131,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\demo.py",
+      "line_number": 15,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'demo_agent_capabilities' is 158 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\github_module.py",
+      "line_number": 52,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\jira_module.py",
+      "line_number": 44,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\jira_module.py",
+      "line_number": 210,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'get_project_statistics' is 59 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\setup.py",
+      "line_number": 11,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'get_version' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\setup.py",
+      "line_number": 20,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'get_long_description' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\simple_test.py",
+      "line_number": 140,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'test_file_structure' is 53 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\test_agent.py",
+      "line_number": 29,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'quick_start' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\test_agent.py",
+      "line_number": 39,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'create_agent_from_config' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\test_agent.py",
+      "line_number": 43,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function 'get_default_workflows' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\test_agent.py",
+      "line_number": 313,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'run_integration_tests' is 68 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\test_agent.py",
+      "line_number": 383,
+      "type": "long_function",
+      "severity": "warning",
+      "description": "Function 'main' is 54 lines long",
+      "suggestion": "Consider breaking into smaller functions"
+    },
+    {
+      "file_path": ".\\test_suite_module.py",
+      "line_number": 54,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\test_suite_module.py",
+      "line_number": 473,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    },
+    {
+      "file_path": ".\\utils.py",
+      "line_number": 18,
+      "type": "missing_docstring",
+      "severity": "info",
+      "description": "Function '__init__' missing docstring",
+      "suggestion": "Add docstring to document function purpose"
+    }
+  ],
+  "duplicates": [],
+  "metrics": {
+    "total_files": 18,
+    "total_lines": 6259,
+    "duplicate_lines": 0,
+    "duplicate_ratio": 0.0,
+    "issue_count": 32,
+    "issue_density": 1.7777777777777777,
+    "maintainability_index": 82.22222222222223
+  }
+}

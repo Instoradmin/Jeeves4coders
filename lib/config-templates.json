@@ -1,0 +1,245 @@
+{
+  "default": {
+    "version": "1.0.0",
+    "project_name": "{{PROJECT_NAME}}",
+    "project_root": "{{PROJECT_ROOT}}",
+    "auto_run_on_build": true,
+    "default_workflow": "code_quality",
+    "modules": {
+      "code_review": {
+        "enabled": true,
+        "config": {
+          "quality_threshold": 8.0,
+          "check_duplicates": true,
+          "check_complexity": true,
+          "exclude_patterns": ["node_modules/", "dist/", "build/"]
+        }
+      },
+      "test_suite": {
+        "enabled": true,
+        "config": {
+          "coverage_threshold": 80.0,
+          "timeout": 300,
+          "test_patterns": ["**/*.test.js", "**/*.spec.js"]
+        }
+      },
+      "github": {
+        "enabled": false,
+        "config": {
+          "repository": "{{GITHUB_REPO}}",
+          "token_env": "GITHUB_TOKEN"
+        }
+      },
+      "jira": {
+        "enabled": false,
+        "config": {
+          "server": "{{JIRA_SERVER}}",
+          "project": "{{JIRA_PROJECT}}",
+          "token_env": "JIRA_API_TOKEN"
+        }
+      },
+      "confluence": {
+        "enabled": false,
+        "config": {
+          "server": "{{CONFLUENCE_SERVER}}",
+          "space": "{{CONFLUENCE_SPACE}}",
+          "token_env": "CONFLUENCE_API_TOKEN"
+        }
+      }
+    },
+    "workflows": {
+      "code_quality": ["code_review"],
+      "full_analysis": ["code_review", "test_suite"],
+      "deployment": ["test_suite", "github", "jira"],
+      "reporting": ["test_suite", "confluence"],
+      "ci_cd": ["code_review", "test_suite", "github"]
+    },
+    "build_hooks": {
+      "prebuild": {
+        "enabled": true,
+        "workflow": "code_quality",
+        "fail_on_error": false
+      },
+      "postbuild": {
+        "enabled": false,
+        "workflow": "reporting",
+        "fail_on_error": false
+      },
+      "pretest": {
+        "enabled": true,
+        "workflow": "code_review",
+        "fail_on_error": false
+      },
+      "posttest": {
+        "enabled": false,
+        "workflow": "reporting",
+        "fail_on_error": false
+      }
+    }
+  },
+  "react": {
+    "version": "1.0.0",
+    "project_name": "{{PROJECT_NAME}}",
+    "project_root": "{{PROJECT_ROOT}}",
+    "project_type": "react",
+    "auto_run_on_build": true,
+    "default_workflow": "code_quality",
+    "modules": {
+      "code_review": {
+        "enabled": true,
+        "config": {
+          "quality_threshold": 8.0,
+          "check_duplicates": true,
+          "check_complexity": true,
+          "exclude_patterns": ["node_modules/", "build/", "public/", "*.min.js"],
+          "react_specific": {
+            "check_hooks": true,
+            "check_prop_types": true,
+            "check_jsx": true
+          }
+        }
+      },
+      "test_suite": {
+        "enabled": true,
+        "config": {
+          "coverage_threshold": 85.0,
+          "timeout": 300,
+          "test_patterns": ["src/**/*.test.js", "src/**/*.test.jsx", "src/**/*.spec.js"],
+          "test_command": "npm test -- --coverage --watchAll=false"
+        }
+      },
+      "github": {
+        "enabled": false,
+        "config": {
+          "repository": "{{GITHUB_REPO}}",
+          "token_env": "GITHUB_TOKEN"
+        }
+      }
+    },
+    "workflows": {
+      "code_quality": ["code_review"],
+      "full_analysis": ["code_review", "test_suite"],
+      "ci_cd": ["code_review", "test_suite", "github"]
+    },
+    "build_hooks": {
+      "prebuild": {
+        "enabled": true,
+        "workflow": "code_quality",
+        "fail_on_error": false
+      },
+      "pretest": {
+        "enabled": true,
+        "workflow": "code_review",
+        "fail_on_error": false
+      }
+    }
+  },
+  "node": {
+    "version": "1.0.0",
+    "project_name": "{{PROJECT_NAME}}",
+    "project_root": "{{PROJECT_ROOT}}",
+    "project_type": "node",
+    "auto_run_on_build": true,
+    "default_workflow": "full_analysis",
+    "modules": {
+      "code_review": {
+        "enabled": true,
+        "config": {
+          "quality_threshold": 8.5,
+          "check_duplicates": true,
+          "check_complexity": true,
+          "exclude_patterns": ["node_modules/", "dist/", "coverage/"],
+          "node_specific": {
+            "check_security": true,
+            "check_dependencies": true,
+            "check_async_patterns": true
+          }
+        }
+      },
+      "test_suite": {
+        "enabled": true,
+        "config": {
+          "coverage_threshold": 90.0,
+          "timeout": 600,
+          "test_patterns": ["test/**/*.js", "**/*.test.js", "**/*.spec.js"],
+          "test_command": "npm test"
+        }
+      },
+      "github": {
+        "enabled": false,
+        "config": {
+          "repository": "{{GITHUB_REPO}}",
+          "token_env": "GITHUB_TOKEN"
+        }
+      }
+    },
+    "workflows": {
+      "code_quality": ["code_review"],
+      "full_analysis": ["code_review", "test_suite"],
+      "deployment": ["test_suite", "github"],
+      "ci_cd": ["code_review", "test_suite", "github"]
+    },
+    "build_hooks": {
+      "prebuild": {
+        "enabled": true,
+        "workflow": "full_analysis",
+        "fail_on_error": true
+      },
+      "pretest": {
+        "enabled": true,
+        "workflow": "code_review",
+        "fail_on_error": false
+      }
+    }
+  },
+  "typescript": {
+    "version": "1.0.0",
+    "project_name": "{{PROJECT_NAME}}",
+    "project_root": "{{PROJECT_ROOT}}",
+    "project_type": "typescript",
+    "auto_run_on_build": true,
+    "default_workflow": "code_quality",
+    "modules": {
+      "code_review": {
+        "enabled": true,
+        "config": {
+          "quality_threshold": 9.0,
+          "check_duplicates": true,
+          "check_complexity": true,
+          "exclude_patterns": ["node_modules/", "dist/", "build/", "*.d.ts"],
+          "typescript_specific": {
+            "check_types": true,
+            "strict_mode": true,
+            "check_interfaces": true
+          }
+        }
+      },
+      "test_suite": {
+        "enabled": true,
+        "config": {
+          "coverage_threshold": 85.0,
+          "timeout": 300,
+          "test_patterns": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx"],
+          "test_command": "npm test"
+        }
+      }
+    },
+    "workflows": {
+      "code_quality": ["code_review"],
+      "full_analysis": ["code_review", "test_suite"],
+      "ci_cd": ["code_review", "test_suite"]
+    },
+    "build_hooks": {
+      "prebuild": {
+        "enabled": true,
+        "workflow": "code_quality",
+        "fail_on_error": false
+      },
+      "pretest": {
+        "enabled": true,
+        "workflow": "code_review",
+        "fail_on_error": false
+      }
+    }
+  }
+}

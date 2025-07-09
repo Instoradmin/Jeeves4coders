@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: jeeves4coders
+Version: 1.0.0
+Summary: AI automation tool for developers - Comprehensive engineering and housekeeping automation
+Home-page: https://github.com/Instoradmin/Jeeves4coders
+Author: Instor Engineering Team
+Author-email: engineering@instor.com
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: System :: Systems Administration
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.0
+Requires-Dist: PyYAML>=5.4.0
+Requires-Dist: configparser>=5.0.0
+Requires-Dist: dataclasses>=0.6; python_version < "3.7"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=2.10.0; extra == "dev"
+Requires-Dist: black>=21.0.0; extra == "dev"
+Requires-Dist: flake8>=3.8.0; extra == "dev"
+Requires-Dist: mypy>=0.800; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: sphinx>=3.0.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=0.5.0; extra == "docs"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+Engineering Automation Agent for comprehensive project automation

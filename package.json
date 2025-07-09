@@ -1,0 +1,97 @@
+{
+  "name": "jeeves4coders",
+  "version": "1.0.0",
+  "description": "Jeeves4coders - Your intelligent coding assistant for comprehensive automation, testing, GitHub integration, JIRA management, and code quality analysis",
+  "main": "lib/index.js",
+  "bin": {
+    "jeeves4coders": "./bin/jeeves4coders.js",
+    "jeeves": "./bin/jeeves4coders.js",
+    "engineering-agent": "./bin/jeeves4coders.js"
+  },
+  "scripts": {
+    "install": "node scripts/install.js",
+    "postinstall": "node scripts/postinstall.js",
+    "preuninstall": "node scripts/preuninstall.js",
+    "test": "node scripts/test.js",
+    "build": "node scripts/build-hook.js",
+    "prebuild": "node scripts/build-hook.js",
+    "postbuild": "node scripts/build-hook.js",
+    "lint": "node scripts/build-hook.js --workflow=code_quality",
+    "audit": "node scripts/build-hook.js --workflow=full_analysis",
+    "lint:engineering": "jeeves4coders workflow code_quality",
+    "audit:engineering": "jeeves4coders workflow full_analysis",
+    "test:engineering": "jeeves4coders run test_suite",
+    "jeeves:lint": "jeeves4coders workflow code_quality",
+    "jeeves:audit": "jeeves4coders workflow full_analysis",
+    "jeeves:test": "jeeves4coders run test_suite"
+  },
+  "keywords": [
+    "jeeves4coders",
+    "jeeves",
+    "coding-assistant",
+    "automation",
+    "engineering",
+    "code-review",
+    "testing",
+    "ci-cd",
+    "github",
+    "jira",
+    "confluence",
+    "quality-assurance",
+    "devops",
+    "build-tools",
+    "vscode-extension",
+    "intelligent-assistant"
+  ],
+  "author": "Instor Engineering Team <engineering@instor.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Instoradmin/Jeeves4coders.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Instoradmin/Jeeves4coders/issues"
+  },
+  "homepage": "https://github.com/Instoradmin/Jeeves4coders#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "which": "^2.0.2",
+    "chalk": "^4.1.2",
+    "commander": "^9.0.0",
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "scripts/",
+    "python-agent/",
+    "README.md",
+    "LICENSE"
+  ],
+  "preferGlobal": false,
+  "config": {
+    "python_version": ">=3.8",
+    "agent_version": "1.0.0"
+  },
+  "jeeves4coders": {
+    "auto_run_on_build": true,
+    "default_workflow": "code_quality",
+    "config_file": ".jeeves4coders.json",
+    "supported_workflows": [
+      "full_analysis",
+      "code_quality",
+      "deployment",
+      "reporting",
+      "ci_cd"
+    ],
+    "vscode_extension": true,
+    "confluence_integration": true
+  }
+}

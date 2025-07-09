@@ -1,0 +1,185 @@
+{
+  "project_name": "comprehensive-automation-example",
+  "project_root": ".",
+  "project_type": "python",
+  "language": "en",
+  "messages_directory": "./messages",
+  
+  "enhanced_testing_configuration": {
+    "test_enabled": true,
+    "test_types": ["unit", "functional", "integration", "regression", "performance", "security", "end_to_end"],
+    "test_timeout": 600,
+    "test_coverage_threshold": 85.0,
+    "github_test_repository": "https://github.com/your-org/test-artifacts",
+    "test_artifacts_retention_days": 30
+  },
+  
+  "code_review_configuration": {
+    "code_review_enabled": true,
+    "deduplication_enabled": true,
+    "code_quality_threshold": 8.5,
+    "comprehensive_documentation": true,
+    "auto_add_comments": true
+  },
+  
+  "build_integration_configuration": {
+    "build_integration_enabled": true,
+    "pre_commit_checks": true,
+    "exception_reporting_enabled": true,
+    "auto_create_bug_tickets": true,
+    "build_artifacts_storage": "github"
+  },
+  
+  "exception_handling_configuration": {
+    "exception_collection_enabled": true,
+    "exception_report_file": "exceptions_report.json",
+    "fail_build_on_exceptions": false
+  },
+  
+  "database_configuration": {
+    "database": {
+      "engine": "sqlite",
+      "path": "./project.db"
+    }
+  },
+  
+  "github_configuration": {
+    "github_enabled": true,
+    "github_base_url": "https://api.github.com",
+    "github_owner": "your-organization",
+    "github_repo": "your-repository",
+    "github_token": "${GITHUB_TOKEN}",
+    "github_test_repository": "https://github.com/your-org/test-artifacts",
+    "comprehensive_commit_descriptions": true,
+    "auto_create_pull_requests": false
+  },
+  
+  "jira_configuration": {
+    "jira_enabled": true,
+    "jira_base_url": "https://your-company.atlassian.net",
+    "jira_email": "automation@your-company.com",
+    "jira_api_token": "${JIRA_API_TOKEN}",
+    "jira_project_key": "PROJ",
+    "jira_default_assignee": "automation-team",
+    "jira_build_component": "Build System",
+    "jira_build_field": "customfield_10001",
+    "jira_commit_field": "customfield_10002"
+  },
+  
+  "confluence_configuration": {
+    "confluence_enabled": true,
+    "confluence_base_url": "https://your-company.atlassian.net/wiki",
+    "confluence_email": "automation@your-company.com",
+    "confluence_api_token": "${CONFLUENCE_API_TOKEN}",
+    "confluence_space": "ENGINEERING"
+  },
+  
+  "deployment_configuration": {
+    "deployment_enabled": true,
+    "deployment_environment": "staging",
+    "auto_deploy_on_success": false
+  },
+  
+  "notification_configuration": {
+    "notifications_enabled": true,
+    "notification_channels": ["confluence", "jira", "email"]
+  },
+  
+  "workflows": {
+    "full_analysis": ["code_review", "test_suite", "github", "jira", "confluence"],
+    "code_quality": ["code_review"],
+    "testing_only": ["test_suite"],
+    "integration_workflow": ["test_suite", "github", "jira"],
+    "deployment_workflow": ["code_review", "test_suite", "deployment", "jira"],
+    "ci_cd": ["code_review", "test_suite", "github"]
+  },
+  
+  "build_hooks": {
+    "pre_commit": {
+      "enabled": true,
+      "workflow": "code_quality",
+      "fail_on_error": false
+    },
+    "pre_build": {
+      "enabled": true,
+      "workflow": "full_analysis",
+      "fail_on_error": true
+    },
+    "post_build": {
+      "enabled": true,
+      "workflow": "integration_workflow",
+      "fail_on_error": false
+    },
+    "pre_deploy": {
+      "enabled": true,
+      "workflow": "deployment_workflow",
+      "fail_on_error": true
+    }
+  },
+  
+  "comprehensive_features": {
+    "unit_testing": {
+      "enabled": true,
+      "framework": "pytest",
+      "coverage_threshold": 90.0,
+      "parallel_execution": true
+    },
+    "functional_testing": {
+      "enabled": true,
+      "test_data_management": true,
+      "environment_setup": "automatic"
+    },
+    "integration_testing": {
+      "enabled": true,
+      "database_testing": true,
+      "api_testing": true,
+      "service_testing": true
+    },
+    "regression_testing": {
+      "enabled": true,
+      "baseline_comparison": true,
+      "automated_test_generation": true
+    },
+    "performance_testing": {
+      "enabled": true,
+      "load_testing": true,
+      "stress_testing": true,
+      "memory_profiling": true
+    },
+    "security_testing": {
+      "enabled": true,
+      "vulnerability_scanning": true,
+      "penetration_testing": false,
+      "compliance_checking": true
+    },
+    "github_integration": {
+      "test_script_storage": true,
+      "comprehensive_commit_descriptions": true,
+      "automated_pull_requests": false,
+      "code_comment_enhancement": true
+    },
+    "jira_integration": {
+      "build_ticket_updates": true,
+      "bug_ticket_creation": true,
+      "comprehensive_descriptions": true,
+      "automated_status_updates": true
+    },
+    "exception_handling": {
+      "comprehensive_collection": true,
+      "detailed_reporting": true,
+      "pre_commit_reporting": true,
+      "automated_bug_creation": true
+    },
+    "internationalization": {
+      "properties_file_support": true,
+      "multi_language_messages": true,
+      "dynamic_language_switching": true
+    },
+    "code_documentation": {
+      "automated_comment_generation": true,
+      "comprehensive_descriptions": true,
+      "readability_enhancement": true,
+      "documentation_validation": true
+    }
+  }
+}

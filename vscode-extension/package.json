@@ -1,0 +1,171 @@
+{
+  "name": "jeeves4coders-vscode",
+  "displayName": "Jeeves4coders",
+  "description": "Your intelligent coding assistant for comprehensive automation, testing, and code quality",
+  "version": "1.0.0",
+  "publisher": "jeeves4coders",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Testing",
+    "Linters",
+    "Debuggers"
+  ],
+  "keywords": [
+    "jeeves4coders",
+    "automation",
+    "testing",
+    "code-quality",
+    "github",
+    "jira",
+    "confluence"
+  ],
+  "activationEvents": [
+    "onCommand:jeeves4coders.init",
+    "onCommand:jeeves4coders.runWorkflow",
+    "onCommand:jeeves4coders.runTests",
+    "onCommand:jeeves4coders.codeReview",
+    "onCommand:jeeves4coders.showStatus",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jeeves4coders.init",
+        "title": "Initialize Jeeves4coders",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.runWorkflow",
+        "title": "Run Workflow",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.runTests",
+        "title": "Run Tests",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.codeReview",
+        "title": "Run Code Review",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.showStatus",
+        "title": "Show Status",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.openSettings",
+        "title": "Open Settings",
+        "category": "Jeeves4coders"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "jeeves4coders.runWorkflow",
+          "group": "jeeves4coders",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "jeeves4coders.codeReview",
+          "group": "jeeves4coders"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "jeeves4coders.codeReview",
+          "group": "jeeves4coders"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "jeeves4coders.init"
+        },
+        {
+          "command": "jeeves4coders.runWorkflow"
+        },
+        {
+          "command": "jeeves4coders.runTests"
+        },
+        {
+          "command": "jeeves4coders.codeReview"
+        },
+        {
+          "command": "jeeves4coders.showStatus"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jeeves4coders",
+          "title": "Jeeves4coders",
+          "icon": "$(robot)"
+        }
+      ]
+    },
+    "views": {
+      "jeeves4coders": [
+        {
+          "id": "jeeves4coders.status",
+          "name": "Status",
+          "when": "jeeves4coders.enabled"
+        },
+        {
+          "id": "jeeves4coders.workflows",
+          "name": "Workflows",
+          "when": "jeeves4coders.enabled"
+        },
+        {
+          "id": "jeeves4coders.results",
+          "name": "Results",
+          "when": "jeeves4coders.enabled"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Jeeves4coders",
+      "properties": {
+        "jeeves4coders.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Jeeves4coders extension"
+        },
+        "jeeves4coders.autoRun": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run workflows on file save"
+        },
+        "jeeves4coders.defaultWorkflow": {
+          "type": "string",
+          "default": "code_quality",
+          "enum": ["code_quality", "full_analysis", "testing_only"],
+          "description": "Default workflow to run"
+        },
+        "jeeves4coders.configFile": {
+          "type": "string",
+          "default": ".jeeves4coders.json",
+          "description": "Configuration file path"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "jeeves4coders": "^1.0.0"
+  }
+}

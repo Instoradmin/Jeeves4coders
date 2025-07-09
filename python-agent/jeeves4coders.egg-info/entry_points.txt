@@ -1,0 +1,3 @@
+[console_scripts]
+engineering-agent = engineering_automation_agent.cli:main
+jeeves4coders = engineering_automation_agent.cli:main

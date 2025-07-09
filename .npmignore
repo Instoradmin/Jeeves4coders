@@ -1,0 +1,79 @@
+# Development files
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+coverage/
+
+# Build artifacts
+dist/
+build/
+.cache/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+.env
+.venv
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+.travis.yml
+.circleci/
+jenkins/
+
+# Documentation source
+docs/
+*.md
+!README.md
+!README-npm.md
+
+# Examples and demos
+examples/
+demo/
+sample/
+
+# Development dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local configuration
+.engineering-agent/
+.engineering-agent.json
+engineering_agent.log
+deployment.log
+deployment_report.json
+code_review_results.json
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/

@@ -1,0 +1,151 @@
+Engineering Automation Agent Deployment Log
+==================================================
+
+[2025-07-04 14:31:03] Starting: Pre-deployment Code Review
+[2025-07-04 14:31:03] Completed: Pre-deployment Code Review
+[2025-07-04 14:31:03] Starting: Validate Configuration
+[2025-07-04 14:31:03] Completed: Validate Configuration
+[2025-07-04 14:31:03] Starting: Run Tests
+[2025-07-04 14:31:03] Failed: Run Tests - Import errors: github_module: attempted relative import with no known parent package; jira_module: attempted relative import with no known parent package
+[2025-07-04 14:31:03] Starting: Build Documentation
+[2025-07-04 14:31:03] Completed: Build Documentation
+[2025-07-04 14:31:03] Starting: Package Application
+[2025-07-04 14:31:03] Completed: Package Application
+[2025-07-04 14:31:03] Starting: Deploy Application
+[2025-07-04 14:31:03] Completed: Deploy Application
+[2025-07-04 14:31:03] Starting: Post-deployment Validation
+[2025-07-04 14:31:03] Failed: Post-deployment Validation - Unknown error
+[2025-07-04 14:31:03] Starting: Generate Deployment Report
+[2025-07-04 14:31:03] Completed: Generate Deployment Report
+
+Deployment Results:
+{
+  "success": false,
+  "steps": [
+    {
+      "name": "Pre-deployment Code Review",
+      "success": true,
+      "details": {
+        "success": true,
+        "issues_found": 34,
+        "duplicates_found": 0,
+        "metrics": {
+          "total_files": 19,
+          "total_lines": 6660,
+          "duplicate_lines": 0,
+          "duplicate_ratio": 0.0,
+          "issue_count": 34,
+          "issue_density": 1.7894736842105263,
+          "maintainability_index": 82.10526315789474
+        }
+      },
+      "timestamp": "2025-07-04T14:31:03.883625"
+    },
+    {
+      "name": "Validate Configuration",
+      "success": true,
+      "details": {
+        "success": true,
+        "validated_files": 6
+      },
+      "timestamp": "2025-07-04T14:31:03.898880"
+    },
+    {
+      "name": "Run Tests",
+      "success": false,
+      "details": {
+        "success": false,
+        "error": "Import errors: github_module: attempted relative import with no known parent package; jira_module: attempted relative import with no known parent package"
+      },
+      "timestamp": "2025-07-04T14:31:03.925855"
+    },
+    {
+      "name": "Build Documentation",
+      "success": true,
+      "details": {
+        "success": true,
+        "documentation_created": true
+      },
+      "timestamp": "2025-07-04T14:31:03.932069"
+    },
+    {
+      "name": "Package Application",
+      "success": true,
+      "details": {
+        "success": true,
+        "package_info": {
+          "name": "engineering-automation-agent",
+          "version": "2.0.0",
+          "files": [
+            "cli.py",
+            "code_review.py",
+            "code_review_module.py",
+            "config_manager.py",
+            "confluence_module.py",
+            "core_agent.py",
+            "demo.py",
+            "deploy.py",
+            "github_module.py",
+            "jira_module.py",
+            "messages.py",
+            "setup.py",
+            "simple_test.py",
+            "test_agent.py",
+            "test_suite_module.py",
+            "utils.py",
+            "version.py",
+            "__init__.py",
+            "basic_usage.py"
+          ],
+          "size_bytes": 249684
+        }
+      },
+      "timestamp": "2025-07-04T14:31:03.940466"
+    },
+    {
+      "name": "Deploy Application",
+      "success": true,
+      "details": {
+        "success": true,
+        "deployment_info": {
+          "deployment_type": "local",
+          "status": "deployed",
+          "location": "C:\\subbuworking\\gitdir\\engineering-automation-agent",
+          "timestamp": "2025-07-04T14:31:03.941219"
+        }
+      },
+      "timestamp": "2025-07-04T14:31:03.941232"
+    },
+    {
+      "name": "Post-deployment Validation",
+      "success": false,
+      "details": {
+        "success": false,
+        "validation_results": {
+          "modules_validated": 4,
+          "validation_errors": [
+            "github_module: attempted relative import with no known parent package",
+            "jira_module: attempted relative import with no known parent package"
+          ]
+        }
+      },
+      "timestamp": "2025-07-04T14:31:03.944523"
+    },
+    {
+      "name": "Generate Deployment Report",
+      "success": true,
+      "details": {
+        "success": true,
+        "report_file": ".\\deployment_report.json"
+      },
+      "timestamp": "2025-07-04T14:31:03.950419"
+    }
+  ],
+  "start_time": "2025-07-04T14:31:03.718532",
+  "errors": [
+    "Run Tests: Import errors: github_module: attempted relative import with no known parent package; jira_module: attempted relative import with no known parent package",
+    "Post-deployment Validation: Unknown error"
+  ],
+  "end_time": "2025-07-04T14:31:03.951169",
+  "duration": 0.232637
+}

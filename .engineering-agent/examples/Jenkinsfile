@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Setup') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+        
+        stage('Engineering Automation') {
+            steps {
+                sh 'npm run audit:engineering'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: '.engineering-agent/reports/**/*', allowEmptyArchive: true
+                }
+            }
+        }
+    }
+}
