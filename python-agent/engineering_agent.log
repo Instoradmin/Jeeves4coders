@@ -4,3 +4,14 @@
 2025-07-09 17:50:39,952 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
 2025-07-09 17:50:39,952 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
 2025-07-09 17:50:39,953 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 18:12:19,605 - engineering_automation_agent.user_analytics - WARNING - Failed to load/create user ID: 'UserAnalytics' object has no attribute 'config'
+2025-07-09 18:13:01,828 - engineering_automation_agent.user_analytics - INFO - Feedback submitted successfully
+2025-07-09 18:13:16,290 - engineering_automation_agent.user_analytics - INFO - Analytics disabled by user request
+2025-07-09 18:13:38,139 - engineering_automation_agent.user_analytics - INFO - Analytics enabled by user request
+2025-07-09 18:13:52,078 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 18:13:52,080 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 18:13:52,084 - EngineeringAgent - ERROR - Module 'code_quality' not found

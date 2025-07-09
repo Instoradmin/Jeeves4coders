@@ -23,7 +23,11 @@
     "test:engineering": "jeeves4coders run test_suite",
     "jeeves:lint": "jeeves4coders workflow code_quality",
     "jeeves:audit": "jeeves4coders workflow full_analysis",
-    "jeeves:test": "jeeves4coders run test_suite"
+    "jeeves:test": "jeeves4coders run test_suite",
+    "jeeves:privacy": "jeeves4coders privacy status",
+    "jeeves:privacy:opt-out": "jeeves4coders privacy opt-out",
+    "jeeves:privacy:opt-in": "jeeves4coders privacy opt-in",
+    "jeeves:feedback": "jeeves4coders privacy feedback"
   },
   "keywords": [
     "jeeves4coders",

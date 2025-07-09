@@ -36,6 +36,8 @@ def main():
             handle_workflow(args)
         elif args.command == 'version':
             handle_version(args)
+        elif args.command == 'privacy':
+            handle_privacy(args)
         else:
             parser.print_help()
     except Exception as e:
@@ -113,7 +115,17 @@ Examples:
     
     # Version command
     subparsers.add_parser('version', help='Show version information')
-    
+
+    # Privacy command
+    privacy_parser = subparsers.add_parser('privacy', help='Manage privacy and analytics settings')
+    privacy_parser.add_argument('privacy_action', choices=['status', 'opt-out', 'opt-in', 'feedback'],
+                               help='Privacy action to perform')
+    privacy_parser.add_argument('--message', help='Feedback message (required for feedback action)')
+    privacy_parser.add_argument('--feedback-type', choices=['bug', 'feature_request', 'general'],
+                               default='general', help='Type of feedback')
+    privacy_parser.add_argument('--rating', type=int, choices=[1, 2, 3, 4, 5],
+                               help='Rating (1-5) for feedback')
+
     return parser
 
 def handle_init(args):
@@ -289,6 +301,53 @@ def handle_version(args):
     workflows = get_default_workflows()
     for workflow_name, modules in workflows.items():
         print(f"  • {workflow_name}: {' -> '.join(modules)}")
+
+def handle_privacy(args):
+    """Handle privacy and analytics settings"""
+    try:
+        from .user_analytics import get_analytics
+        analytics = get_analytics()
+
+        if args.privacy_action == 'status':
+            status = analytics.get_privacy_status()
+            print("\n🔒 Privacy & Analytics Status:")
+            print(f"  User ID: {status['user_id']}")
+            print(f"  Analytics Enabled: {status['analytics_enabled']}")
+            print(f"  Error Reporting: {status['error_reporting_enabled']}")
+            print(f"  Usage Tracking: {status['usage_tracking_enabled']}")
+            print(f"  Feedback Enabled: {status['feedback_enabled']}")
+            print(f"  Last Consent: {status['last_privacy_consent']}")
+            print(f"  Privacy Policy Version: {status['privacy_policy_version']}")
+            print(f"\n🛡️  {status['code_safety_guarantee']}")
+
+        elif args.privacy_action == 'opt-out':
+            analytics.opt_out_analytics()
+            print("✅ Analytics disabled. Your privacy is fully protected.")
+            print("   No usage data will be collected.")
+
+        elif args.privacy_action == 'opt-in':
+            analytics.opt_in_analytics()
+            print("✅ Analytics enabled. Thank you for helping improve Jeeves4coders!")
+            print("   Only anonymous usage data is collected - no source code.")
+
+        elif args.privacy_action == 'feedback':
+            if not hasattr(args, 'message') or not args.message:
+                print("❌ Please provide a feedback message with --message")
+                return
+
+            feedback_type = getattr(args, 'feedback_type', 'general')
+            rating = getattr(args, 'rating', None)
+
+            success = analytics.submit_feedback(feedback_type, args.message, rating)
+            if success:
+                print("✅ Feedback submitted successfully. Thank you!")
+            else:
+                print("❌ Failed to submit feedback. Please try again later.")
+
+    except ImportError:
+        print("❌ Analytics module not available")
+    except Exception as e:
+        print(f"❌ Error handling privacy settings: {e}")
 
 if __name__ == '__main__':
     main()

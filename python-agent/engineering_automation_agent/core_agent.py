@@ -10,10 +10,23 @@ import sys
 import json
 import logging
 import importlib
+import traceback
 from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
 from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
+
+# Import analytics for user tracking (privacy-compliant)
+try:
+    from .user_analytics import get_analytics, track_usage, report_error
+except ImportError:
+    # Fallback if analytics module is not available
+    def get_analytics():
+        return None
+    def track_usage(*args, **kwargs):
+        pass
+    def report_error(*args, **kwargs):
+        pass
 
 # Configure logging
 logging.basicConfig(
@@ -143,7 +156,17 @@ class EngineeringAutomationAgent:
         self.logger.info("🚀 Initializing Engineering Automation Agent")
         self.logger.info(f"📁 Project: {self.config.project_name}")
         self.logger.info(f"📂 Root: {self.config.project_root}")
-        
+
+        # Track agent initialization (privacy-compliant)
+        try:
+            track_usage("agent_initialized", {
+                "project_type": self.config.project_type,
+                "agent_version": "1.0.0",
+                "modules_count": len(self.modules)
+            })
+        except Exception as e:
+            self.logger.debug(f"Analytics tracking failed: {e}")
+
         # Set up execution context
         self.execution_context = {
             'project_name': self.config.project_name,
@@ -152,7 +175,7 @@ class EngineeringAutomationAgent:
             'timestamp': datetime.now().isoformat(),
             'agent_version': '1.0.0'
         }
-        
+
         # Load available modules
         self._load_modules()
     
@@ -203,21 +226,45 @@ class EngineeringAutomationAgent:
         try:
             result_data = module.execute(execution_context)
             execution_time = (datetime.now() - start_time).total_seconds()
-            
+
             result = ExecutionResult(
                 success=True,
                 module_name=module_name,
                 execution_time=execution_time,
                 data=result_data
             )
-            
+
             self.logger.info(f"✅ Module '{module_name}' completed successfully in {execution_time:.2f}s")
-            
+
+            # Track successful module execution
+            try:
+                track_usage("module_executed", {
+                    "module_name": module_name,
+                    "execution_time": execution_time,
+                    "success": True
+                })
+            except Exception:
+                pass  # Don't let analytics failures affect execution
+
         except Exception as e:
             execution_time = (datetime.now() - start_time).total_seconds()
             error_msg = f"Module execution failed: {str(e)}"
             self.logger.error(error_msg)
-            
+
+            # Report error for bug tracking (no code content)
+            try:
+                report_error(
+                    error_type="ModuleExecutionError",
+                    error_message=error_msg,
+                    context={
+                        "module_name": module_name,
+                        "execution_time": execution_time
+                    },
+                    stack_trace=traceback.format_exc()
+                )
+            except Exception:
+                pass  # Don't let analytics failures affect execution
+
             result = ExecutionResult(
                 success=False,
                 module_name=module_name,
