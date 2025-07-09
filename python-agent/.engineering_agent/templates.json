@@ -1,0 +1,92 @@
+{
+  "python_web": {
+    "name": "Python Web Application",
+    "description": "Flask/Django web application template",
+    "project_type": "python",
+    "default_config": {
+      "test_types": [
+        "unit",
+        "functional",
+        "regression"
+      ],
+      "test_framework": "pytest",
+      "app_port": 5000
+    },
+    "required_files": [
+      "requirements.txt",
+      "app.py"
+    ],
+    "optional_files": [
+      "Dockerfile",
+      "docker-compose.yml",
+      "pytest.ini"
+    ]
+  },
+  "python_api": {
+    "name": "Python API Service",
+    "description": "REST API service template",
+    "project_type": "python",
+    "default_config": {
+      "test_types": [
+        "unit",
+        "functional",
+        "regression",
+        "performance"
+      ],
+      "test_framework": "pytest",
+      "app_port": 8000
+    },
+    "required_files": [
+      "requirements.txt",
+      "main.py"
+    ],
+    "optional_files": [
+      "Dockerfile",
+      "openapi.yaml"
+    ]
+  },
+  "javascript_web": {
+    "name": "JavaScript Web Application",
+    "description": "React/Vue/Angular web application template",
+    "project_type": "javascript",
+    "default_config": {
+      "test_types": [
+        "unit",
+        "functional",
+        "regression"
+      ],
+      "test_framework": "jest",
+      "app_port": 3000
+    },
+    "required_files": [
+      "package.json"
+    ],
+    "optional_files": [
+      "Dockerfile",
+      "jest.config.js",
+      "webpack.config.js"
+    ]
+  },
+  "java_spring": {
+    "name": "Java Spring Application",
+    "description": "Spring Boot application template",
+    "project_type": "java",
+    "default_config": {
+      "test_types": [
+        "unit",
+        "functional",
+        "regression"
+      ],
+      "test_framework": "junit",
+      "app_port": 8080
+    },
+    "required_files": [
+      "pom.xml",
+      "src/main/java"
+    ],
+    "optional_files": [
+      "Dockerfile",
+      "application.properties"
+    ]
+  }
+}

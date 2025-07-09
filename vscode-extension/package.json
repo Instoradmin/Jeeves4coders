@@ -62,6 +62,31 @@
         "command": "jeeves4coders.openSettings",
         "title": "Open Settings",
         "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.configureAccounts",
+        "title": "Configure Accounts",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.connectGitHub",
+        "title": "Connect GitHub",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.connectJIRA",
+        "title": "Connect JIRA",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.connectConfluence",
+        "title": "Connect Confluence",
+        "category": "Jeeves4coders"
+      },
+      {
+        "command": "jeeves4coders.ssoLogin",
+        "title": "SSO Login (Google OAuth2)",
+        "category": "Jeeves4coders"
       }
     ],
     "menus": {
@@ -151,6 +176,36 @@
           "type": "string",
           "default": ".jeeves4coders.json",
           "description": "Configuration file path"
+        },
+        "jeeves4coders.ssoEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable SSO authentication with Google OAuth2"
+        },
+        "jeeves4coders.github.connected": {
+          "type": "boolean",
+          "default": false,
+          "description": "GitHub account connection status"
+        },
+        "jeeves4coders.jira.connected": {
+          "type": "boolean",
+          "default": false,
+          "description": "JIRA account connection status"
+        },
+        "jeeves4coders.confluence.connected": {
+          "type": "boolean",
+          "default": false,
+          "description": "Confluence account connection status"
+        },
+        "jeeves4coders.oauth.clientId": {
+          "type": "string",
+          "default": "",
+          "description": "Google OAuth2 Client ID for SSO"
+        },
+        "jeeves4coders.accounts.autoConnect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically connect to configured accounts on startup"
         }
       }
     }
@@ -166,6 +221,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "jeeves4coders": "^1.0.0"
+    "axios": "^1.6.0",
+    "uuid": "^9.0.0"
   }
 }

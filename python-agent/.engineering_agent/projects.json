@@ -1,0 +1,42 @@
+{
+  "python-agent": {
+    "project_name": "python-agent",
+    "project_root": ".",
+    "project_type": "python",
+    "github_enabled": true,
+    "github_token": "",
+    "github_repo": "",
+    "github_owner": "",
+    "jira_enabled": true,
+    "jira_base_url": "",
+    "jira_email": "",
+    "jira_api_token": "",
+    "jira_project_key": "",
+    "confluence_enabled": true,
+    "confluence_base_url": "",
+    "confluence_email": "",
+    "confluence_api_token": "",
+    "confluence_space_key": "",
+    "test_enabled": true,
+    "test_types": [
+      "unit",
+      "functional",
+      "regression",
+      "performance",
+      "security"
+    ],
+    "test_timeout": 300,
+    "test_coverage_threshold": 80.0,
+    "code_review_enabled": true,
+    "deduplication_enabled": true,
+    "code_quality_threshold": 8.0,
+    "deployment_enabled": true,
+    "deployment_environment": "staging",
+    "auto_deploy_on_success": false,
+    "notifications_enabled": true,
+    "notification_channels": [
+      "confluence",
+      "jira"
+    ]
+  }
+}

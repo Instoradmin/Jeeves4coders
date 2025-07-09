@@ -8,11 +8,17 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { ConfigurationManager } from './configManager';
+import { ConfigurationWebview } from './configWebview';
 
 const execAsync = promisify(exec);
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Jeeves4coders extension is now active!');
+
+    // Initialize configuration manager and webview
+    const configManager = new ConfigurationManager(context);
+    const configWebview = new ConfigurationWebview(context);
 
     // Initialize status bar
     const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
@@ -21,6 +27,15 @@ export function activate(context: vscode.ExtensionContext) {
     statusBarItem.command = 'jeeves4coders.showStatus';
     statusBarItem.show();
 
+    // Auto-validate SSO on startup
+    configManager.validateAndRefreshSSO().then(isValid => {
+        if (isValid) {
+            console.log('SSO token is valid');
+        } else {
+            console.log('SSO token is invalid or expired');
+        }
+    });
+
     // Register commands
     const commands = [
         vscode.commands.registerCommand('jeeves4coders.init', initializeJeeves),
@@ -28,7 +43,12 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('jeeves4coders.runTests', runTests),
         vscode.commands.registerCommand('jeeves4coders.codeReview', runCodeReview),
         vscode.commands.registerCommand('jeeves4coders.showStatus', showStatus),
-        vscode.commands.registerCommand('jeeves4coders.openSettings', openSettings)
+        vscode.commands.registerCommand('jeeves4coders.openSettings', openSettings),
+        vscode.commands.registerCommand('jeeves4coders.configureAccounts', () => configWebview.show()),
+        vscode.commands.registerCommand('jeeves4coders.connectGitHub', () => connectAccount('github', configManager)),
+        vscode.commands.registerCommand('jeeves4coders.connectJIRA', () => connectAccount('jira', configManager)),
+        vscode.commands.registerCommand('jeeves4coders.connectConfluence', () => connectAccount('confluence', configManager)),
+        vscode.commands.registerCommand('jeeves4coders.ssoLogin', () => configManager.initiateSSO())
     ];
 
     // Register providers
@@ -182,6 +202,108 @@ async function openSettings() {
     vscode.commands.executeCommand('workbench.action.openSettings', 'jeeves4coders');
 }
 
+async function connectAccount(accountType: 'github' | 'jira' | 'confluence', configManager: ConfigurationManager) {
+    try {
+        const existingConfig = await configManager.getAccountConfig(accountType);
+
+        if (existingConfig.connected) {
+            const reconnect = await vscode.window.showWarningMessage(
+                `${accountType.toUpperCase()} is already connected. Do you want to reconnect?`,
+                'Yes', 'No'
+            );
+
+            if (reconnect !== 'Yes') {
+                return;
+            }
+        }
+
+        let baseUrl = '';
+        let username = '';
+        let email = '';
+        let token = '';
+
+        // Get account-specific information
+        switch (accountType) {
+            case 'github':
+                username = await vscode.window.showInputBox({
+                    prompt: 'Enter your GitHub username',
+                    placeHolder: 'your-username'
+                }) || '';
+
+                email = await vscode.window.showInputBox({
+                    prompt: 'Enter your GitHub email',
+                    placeHolder: 'your-email@example.com'
+                }) || '';
+
+                token = await vscode.window.showInputBox({
+                    prompt: 'Enter your GitHub Personal Access Token',
+                    placeHolder: 'ghp_xxxxxxxxxxxx',
+                    password: true
+                }) || '';
+
+                baseUrl = 'https://api.github.com';
+                break;
+
+            case 'jira':
+                baseUrl = await vscode.window.showInputBox({
+                    prompt: 'Enter your JIRA base URL',
+                    placeHolder: 'https://your-company.atlassian.net'
+                }) || '';
+
+                email = await vscode.window.showInputBox({
+                    prompt: 'Enter your JIRA email',
+                    placeHolder: 'your-email@company.com'
+                }) || '';
+
+                token = await vscode.window.showInputBox({
+                    prompt: 'Enter your JIRA API token',
+                    placeHolder: 'your-api-token',
+                    password: true
+                }) || '';
+                break;
+
+            case 'confluence':
+                baseUrl = await vscode.window.showInputBox({
+                    prompt: 'Enter your Confluence base URL',
+                    placeHolder: 'https://your-company.atlassian.net/wiki'
+                }) || '';
+
+                email = await vscode.window.showInputBox({
+                    prompt: 'Enter your Confluence email',
+                    placeHolder: 'your-email@company.com'
+                }) || '';
+
+                token = await vscode.window.showInputBox({
+                    prompt: 'Enter your Confluence API token',
+                    placeHolder: 'your-api-token',
+                    password: true
+                }) || '';
+                break;
+        }
+
+        if (!token || (accountType !== 'github' && !baseUrl)) {
+            vscode.window.showErrorMessage('All required fields must be filled');
+            return;
+        }
+
+        // Store the configuration
+        const config = {
+            type: accountType,
+            connected: true,
+            username,
+            email,
+            token,
+            baseUrl
+        };
+
+        await configManager.storeAccountConfig(config);
+        vscode.window.showInformationMessage(`${accountType.toUpperCase()} account connected successfully!`);
+
+    } catch (error) {
+        vscode.window.showErrorMessage(`Failed to connect ${accountType}: ${error}`);
+    }
+}
+
 function getStatusWebviewContent(statusInfo: string): string {
     return `
     <!DOCTYPE html>
@@ -242,6 +364,19 @@ function getStatusWebviewContent(statusInfo: string): string {
         </div>
         
         <div class="status-section">
+            <h3>🔗 Account Connections</h3>
+            <p>Manage your service connections:</p>
+            <ul>
+                <li><strong>Configure Accounts:</strong> Set up GitHub, JIRA, and Confluence connections</li>
+                <li><strong>SSO Login:</strong> Use Google OAuth2 for seamless authentication</li>
+                <li><strong>Test Connections:</strong> Verify your account configurations</li>
+            </ul>
+            <button onclick="vscode.postMessage({command: 'configureAccounts'})" style="margin-top: 10px; padding: 8px 16px; background: var(--vscode-button-background); color: var(--vscode-button-foreground); border: none; border-radius: 4px; cursor: pointer;">
+                Configure Accounts
+            </button>
+        </div>
+
+        <div class="status-section">
             <h3>🚀 Quick Actions</h3>
             <p>Use the Command Palette (Ctrl+Shift+P) and search for "Jeeves4coders" to access all features:</p>
             <ul>
@@ -256,6 +391,19 @@ function getStatusWebviewContent(statusInfo: string): string {
             <h3>⚙️ Configuration</h3>
             <p>Configure Jeeves4coders in VS Code settings or create a <code>.jeeves4coders.json</code> file in your project root.</p>
         </div>
+        <script>
+            const vscode = acquireVsCodeApi();
+
+            // Handle messages from VS Code
+            window.addEventListener('message', event => {
+                const message = event.data;
+                switch (message.command) {
+                    case 'configureAccounts':
+                        // This will be handled by the extension
+                        break;
+                }
+            });
+        </script>
     </body>
     </html>`;
 }
