@@ -1,129 +1,159 @@
-# Jeeves4coders VS Code Extension
+# 🤖 Jeeves4coders - Your Intelligent Coding Assistant
 
-Your intelligent coding assistant integrated directly into VS Code!
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://marketplace.visualstudio.com/items?itemName=jeeves4coders.jeeves4coders-vscode)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/jeeves4coders/engineering-automation-agent/blob/main/LICENSE)
+[![Privacy](https://img.shields.io/badge/privacy-protected-brightgreen.svg)](https://github.com/jeeves4coders/engineering-automation-agent/blob/main/PRIVACY_POLICY.md)
 
-## Features
+**Jeeves4coders** is your comprehensive automation assistant for code quality, testing, and enterprise integrations. Built with privacy-first principles, it enhances your development workflow without compromising your source code security.
 
-- **🤖 Intelligent Automation**: Comprehensive code analysis, testing, and quality checks
-- **🧪 Testing Integration**: Run unit, functional, integration, and regression tests
-- **📊 Code Quality**: Automated code review and quality analysis
-- **🔗 GitHub Integration**: Seamless GitHub workflow integration
-- **🎫 JIRA Integration**: Automatic ticket management and updates
-- **📚 Confluence Integration**: Documentation and test results publishing
-- **🌍 Multi-language Support**: Internationalization with multiple languages
+## ✨ Key Features
 
-## Quick Start
+### 🔍 **Intelligent Code Analysis**
+- **Automated Code Review**: Deep analysis of code quality, patterns, and best practices
+- **Duplicate Detection**: Identify and eliminate code duplication across your project
+- **Multi-language Support**: Works with JavaScript, Python, Java, C#, and more
+- **Real-time Feedback**: Instant insights as you code
 
-1. Install the extension from the VS Code marketplace
-2. Open your project in VS Code
-3. Use `Ctrl+Shift+P` and search for "Jeeves4coders: Initialize"
+### 🧪 **Comprehensive Testing Framework**
+- **Unit Tests**: Automated unit test generation and execution
+- **Functional Tests**: End-to-end functionality validation
+- **Integration Tests**: Cross-component testing
+- **Regression Tests**: Ensure changes don't break existing functionality
+- **Coverage Reports**: Detailed test coverage analysis
+
+### 🔗 **Enterprise Integrations**
+- **GitHub Integration**: Seamless repository management and PR automation
+- **JIRA Integration**: Automatic ticket creation, updates, and workflow management
+- **Confluence Integration**: Documentation generation and management
+- **CI/CD Pipeline**: Integration with popular build systems
+
+### 🔐 **Privacy-First Design**
+- **🛡️ Zero Code Transmission**: Your source code NEVER leaves your machine
+- **📊 Anonymous Analytics**: Only usage statistics, no personal data
+- **⚙️ Full Control**: Complete opt-out capabilities
+- **🔒 Secure Authentication**: Google OAuth2 SSO support
+
+## 🚀 Quick Start
+
+### Installation
+1. Install from VS Code Marketplace
+2. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+3. Run `Jeeves4coders: Initialize`
 4. Follow the setup wizard
 
-## Commands
+### First Analysis
+```bash
+# Initialize your project
+Jeeves4coders: Initialize
 
-- **Jeeves4coders: Initialize** - Set up Jeeves4coders for your project
-- **Jeeves4coders: Run Workflow** - Execute automation workflows
-- **Jeeves4coders: Run Tests** - Run comprehensive test suites
-- **Jeeves4coders: Run Code Review** - Analyze code quality
-- **Jeeves4coders: Show Status** - View current status and configuration
+# Run comprehensive analysis
+Jeeves4coders: Run Workflow → Code Quality
 
-## Workflows Available
-
-- **Code Quality** - Code review and quality analysis
-- **Full Analysis** - Complete project analysis with testing
-- **Testing Only** - Comprehensive test execution
-- **CI/CD** - Continuous integration workflow
-- **Deployment** - Deployment preparation and validation
-
-## Configuration
-
-Configure Jeeves4coders through VS Code settings:
-
-```json
-{
-  "jeeves4coders.enabled": true,
-  "jeeves4coders.autoRun": false,
-  "jeeves4coders.defaultWorkflow": "code_quality",
-  "jeeves4coders.configFile": ".jeeves4coders.json"
-}
+# View results in the Jeeves4coders panel
 ```
 
-## Project Configuration
+## 📋 Available Commands
 
-Create a `.jeeves4coders.json` file in your project root:
+| Command | Description |
+|---------|-------------|
+| `Jeeves4coders: Initialize` | Set up Jeeves4coders in your project |
+| `Jeeves4coders: Run Workflow` | Execute automation workflows |
+| `Jeeves4coders: Run Tests` | Execute comprehensive test suites |
+| `Jeeves4coders: Run Code Review` | Perform detailed code analysis |
+| `Jeeves4coders: Configure Accounts` | Set up GitHub/JIRA/Confluence |
+| `Jeeves4coders: SSO Login` | Authenticate with Google OAuth2 |
 
-```json
-{
-  "project_name": "my-project",
-  "test_types": ["unit", "functional", "integration"],
-  "github_enabled": true,
-  "jira_enabled": true,
-  "confluence_enabled": true
-}
+## ⚙️ Configuration
+
+### Account Setup
+Access the configuration UI through:
+- **Command Palette**: `Jeeves4coders: Configure Accounts`
+- **Settings**: Search for "Jeeves4coders"
+- **Activity Bar**: Click the Jeeves4coders icon
+
+### Supported Integrations
+- **GitHub**: Repository management, PR automation, issue tracking
+- **JIRA**: Ticket creation, workflow automation, sprint management
+- **Confluence**: Documentation generation, knowledge base updates
+- **Google OAuth2**: Secure single sign-on authentication
+
+## 🔧 Workflows
+
+### Code Quality Workflow
+- Code review and analysis
+- Duplicate code detection
+- Best practice recommendations
+- Security vulnerability scanning
+
+### Full Analysis Workflow
+- Complete project analysis
+- Comprehensive testing
+- Documentation generation
+- Integration checks
+
+### Testing Only Workflow
+- Unit test execution
+- Coverage analysis
+- Performance testing
+- Regression validation
+
+## 📊 Privacy & Analytics
+
+Jeeves4coders is built with **privacy-first principles**:
+
+### ✅ What We DON'T Collect
+- ❌ Source code content
+- ❌ File paths or names
+- ❌ Personal information
+- ❌ Project-specific data
+
+### ✅ What We DO Collect (Anonymous)
+- ✅ Usage statistics (which features used)
+- ✅ Performance metrics (execution times)
+- ✅ Error logs (sanitized, no code)
+- ✅ System information (OS, versions)
+
+### 🔒 Your Controls
+```bash
+# Check privacy status
+Jeeves4coders: Privacy Status
+
+# Opt out completely
+Jeeves4coders: Privacy Opt-out
+
+# Submit feedback
+Jeeves4coders: Submit Feedback
 ```
 
-## Usage
+## 🛠️ Requirements
 
-### From Command Palette
-1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
-2. Type "Jeeves4coders"
-3. Select the desired command
+- **VS Code**: 1.74.0 or higher
+- **Node.js**: 16.x or higher
+- **Python**: 3.8+ (for backend components)
+- **Git**: For repository integration
 
-### From Activity Bar
-1. Click the Jeeves4coders icon in the activity bar
-2. Use the Status, Workflows, and Results panels
-3. Click on workflows to execute them
+## 📈 What's New in v1.0.0
 
-### From Context Menu
-- Right-click on files or folders to access Jeeves4coders commands
-- Run code review on specific files
-- Execute workflows on selected directories
+- 🎉 **Initial Release**: Complete automation framework
+- 🛡️ **Privacy Protection**: Watertight privacy policy
+- 🔗 **Enterprise Ready**: GitHub/JIRA/Confluence integrations
+- 🧪 **Comprehensive Testing**: Multi-level test framework
+- 🔐 **SSO Authentication**: Google OAuth2 support
+- 📊 **Analytics Dashboard**: Privacy-compliant usage tracking
 
-## Status Bar
+## 🆘 Support & Resources
 
-The Jeeves4coders status bar item shows:
-- Current status (ready, running, error)
-- Quick access to status panel
-- Visual feedback during operations
+- 📚 **Documentation**: [GitHub Wiki](https://github.com/jeeves4coders/engineering-automation-agent/wiki)
+- 🐛 **Bug Reports**: [Issue Tracker](https://github.com/jeeves4coders/engineering-automation-agent/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/jeeves4coders/engineering-automation-agent/discussions)
+- 🔒 **Privacy Policy**: [Full Policy](https://github.com/jeeves4coders/engineering-automation-agent/blob/main/PRIVACY_POLICY.md)
 
-## Requirements
+## 📄 License
 
-- VS Code 1.74.0 or higher
-- Node.js 14.0.0 or higher
-- Python 3.8 or higher (automatically managed)
-
-## Extension Settings
-
-This extension contributes the following settings:
-
-- `jeeves4coders.enabled`: Enable/disable the extension
-- `jeeves4coders.autoRun`: Automatically run workflows on file save
-- `jeeves4coders.defaultWorkflow`: Default workflow to run
-- `jeeves4coders.configFile`: Path to configuration file
-
-## Known Issues
-
-- Initial setup may take a few minutes to install Python dependencies
-- Some workflows require additional configuration (GitHub tokens, JIRA credentials)
-
-## Release Notes
-
-### 1.0.0
-
-Initial release of Jeeves4coders VS Code extension:
-- Complete integration with Jeeves4coders automation agent
-- Command palette integration
-- Activity bar panel with status, workflows, and results
-- Context menu integration
-- Status bar indicator
-- Comprehensive configuration options
-
-## Support
-
-- [GitHub Repository](https://github.com/Instoradmin/Jeeves4coders)
-- [Documentation](https://github.com/Instoradmin/Jeeves4coders#readme)
-- [Issues](https://github.com/Instoradmin/Jeeves4coders/issues)
+MIT License - see [LICENSE](https://github.com/jeeves4coders/engineering-automation-agent/blob/main/LICENSE) for details.
 
 ---
 
-**Enjoy coding with your intelligent assistant!** 🤖
+**Made with ❤️ by the Jeeves4coders team**
+
+*Your intelligent coding assistant that respects your privacy while supercharging your development workflow.*

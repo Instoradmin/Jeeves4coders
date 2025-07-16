@@ -15,3 +15,68 @@
 2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
 2025-07-09 18:13:52,082 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
 2025-07-09 18:13:52,084 - EngineeringAgent - ERROR - Module 'code_quality' not found
+2025-07-09 18:26:37,599 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 18:26:37,601 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 18:26:37,607 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 18:26:37,608 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 18:26:37,608 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 18:26:37,608 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 18:35:22,287 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 18:35:22,289 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 18:35:22,292 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 18:35:22,292 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 18:35:22,292 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 18:35:22,292 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 18:36:16,993 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 18:36:16,996 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 18:36:16,998 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 18:36:16,998 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 18:36:16,998 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 18:36:16,999 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 18:37:24,354 - EngineeringAgent - ERROR - Module 'github' not found
+2025-07-09 19:02:55,820 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 19:02:55,822 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 19:02:55,825 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 19:02:55,825 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 19:02:55,825 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 19:02:55,826 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 19:04:04,659 - EngineeringAgent - ERROR - Module 'github' not found
+2025-07-09 19:17:43,064 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 19:17:43,067 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 19:17:43,069 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 19:17:43,069 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 19:17:43,069 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 19:17:43,069 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 19:18:54,147 - EngineeringAgent - ERROR - Module 'github' not found
+2025-07-09 19:19:49,166 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 19:19:49,169 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 19:19:49,172 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 19:19:49,172 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 19:19:49,172 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 19:19:49,172 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 19:20:55,895 - EngineeringAgent - ERROR - Module 'github' not found
+2025-07-09 21:04:22,438 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 21:04:22,440 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 21:04:22,441 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 21:04:22,442 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 21:04:22,442 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 21:04:22,442 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 21:05:28,300 - EngineeringAgent - ERROR - Module 'github' not found
+2025-07-09 21:08:53,960 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 21:08:53,961 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 21:08:53,963 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 21:08:53,963 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 21:08:53,963 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 21:08:53,963 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 21:25:08,474 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 21:25:08,477 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 21:25:08,478 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 21:25:08,478 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 21:25:08,479 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 21:25:08,479 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key
+2025-07-09 22:47:16,574 - EngineeringAgent - ERROR - [GitHubModule] GitHub token not provided
+2025-07-09 22:47:16,576 - EngineeringAgent - ERROR - [JiraModule] JIRA base URL not provided
+2025-07-09 22:47:16,578 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_base_url
+2025-07-09 22:47:16,578 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_email
+2025-07-09 22:47:16,578 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_api_token
+2025-07-09 22:47:16,578 - EngineeringAgent - ERROR - [ConfluenceModule] Missing required configuration field: confluence_space_key

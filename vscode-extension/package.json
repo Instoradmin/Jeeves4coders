@@ -4,6 +4,15 @@
   "description": "Your intelligent coding assistant for comprehensive automation, testing, and code quality",
   "version": "1.0.0",
   "publisher": "jeeves4coders",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeeves4coders/engineering-automation-agent.git"
+  },
+  "homepage": "https://github.com/jeeves4coders/engineering-automation-agent",
+  "bugs": {
+    "url": "https://github.com/jeeves4coders/engineering-automation-agent/issues"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -23,11 +32,6 @@
     "confluence"
   ],
   "activationEvents": [
-    "onCommand:jeeves4coders.init",
-    "onCommand:jeeves4coders.runWorkflow",
-    "onCommand:jeeves4coders.runTests",
-    "onCommand:jeeves4coders.codeReview",
-    "onCommand:jeeves4coders.showStatus",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
