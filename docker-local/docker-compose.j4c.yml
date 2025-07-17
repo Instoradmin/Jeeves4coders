@@ -1,0 +1,312 @@
+# J4C (Jeeves4coders) - Engineering Automation Agent Docker Compose
+# Complete local development environment for J4C project analytics dashboard
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database for J4C Analytics
+  j4c-database:
+    image: postgres:15-alpine
+    container_name: j4c-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: j4c_analytics
+      POSTGRES_USER: j4c_user
+      POSTGRES_PASSWORD: j4c_secure_password_2024
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - j4c_postgres_data:/var/lib/postgresql/data
+      - ./database/j4c-init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./database/j4c-schema.sql:/docker-entrypoint-initdb.d/02-schema.sql
+      - ./database/j4c-seed.sql:/docker-entrypoint-initdb.d/03-seed.sql
+    ports:
+      - "5433:5432"
+    networks:
+      - j4c-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U j4c_user -d j4c_analytics"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache for J4C
+  j4c-redis:
+    image: redis:7-alpine
+    container_name: j4c-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass j4c_redis_2024
+    volumes:
+      - j4c_redis_data:/data
+    ports:
+      - "6380:6379"
+    networks:
+      - j4c-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "j4c_redis_2024", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # J4C Backend API
+  j4c-backend:
+    build:
+      context: ..
+      dockerfile: docker-local/backend/Dockerfile
+    container_name: j4c-backend
+    restart: unless-stopped
+    environment:
+      # Database Configuration
+      DATABASE_URL: postgresql://j4c_user:j4c_secure_password_2024@j4c-database:5432/j4c_analytics
+      
+      # Redis Configuration
+      REDIS_URL: redis://:j4c_redis_2024@j4c-redis:6379/0
+      
+      # Authentication
+      JWT_SECRET_KEY: j4c-jwt-secret-key-for-local-development-2024
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      
+      # Google OAuth2 for J4C
+      GOOGLE_CLIENT_ID: ${J4C_GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${J4C_GOOGLE_CLIENT_SECRET:-}
+      
+      # GitHub OAuth2 for J4C
+      GITHUB_CLIENT_ID: ${J4C_GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${J4C_GITHUB_CLIENT_SECRET:-}
+      
+      # Google AI Configuration for J4C
+      GOOGLE_AI_API_KEY: ${J4C_GOOGLE_AI_API_KEY:-}
+      GOOGLE_AI_MODEL: gemini-pro
+      
+      # J4C JIRA Configuration
+      JIRA_BASE_URL: https://instor.atlassian.net
+      JIRA_EMAIL: subbu@instor.in
+      JIRA_API_TOKEN: ${J4C_JIRA_API_TOKEN:-ATATT3xFfGF02M-uwYL27Q-lc-OdO8bb5WSSEFk8QPFOMo_tTdWQZ_qjDX6HhFMYdd2Nh8CN7e1adhBZbg3ERZMq_IJV8KP3fEW5u8G2K4dxGaLevRfNUnVprTFSJGYY03ex2Rr3X_H2yb5ax-0JYGGOfbjiPXJ5tT9EtfgpdhbgFq45k9HgL9g=D139BE86}
+      JIRA_PROJECT_KEY: J4C
+      JIRA_BOARD_ID: 327
+      
+      # J4C GitHub Integration
+      GITHUB_TOKEN: ${J4C_GITHUB_TOKEN:-}
+      GITHUB_ORG: Instoradmin
+      GITHUB_REPO: Jeeves4coders
+      GITHUB_WEBHOOK_SECRET: j4c-webhook-secret-2024
+      
+      # Application Configuration
+      ENVIRONMENT: development
+      DEBUG: true
+      LOG_LEVEL: info
+      HOST: 0.0.0.0
+      PORT: 8000
+      
+      # CORS Configuration for J4C
+      ALLOWED_ORIGINS: '["http://localhost:3000","http://localhost:3001","http://j4c-frontend:3000","http://127.0.0.1:3000"]'
+      ALLOWED_HOSTS: '["localhost","127.0.0.1","j4c-frontend","j4c-backend"]'
+      
+      # J4C Admin Configuration
+      ADMIN_EMAIL: subbu@aurigraph.io
+      ADMIN_USERNAME: subbu_j4c_admin
+      ADMIN_FULL_NAME: "Subbu Jois (J4C Admin)"
+      
+      # J4C Project Specific
+      PROJECT_NAME: "Jeeves4coders (J4C)"
+      PROJECT_KEY: J4C
+      PROJECT_DESCRIPTION: "Engineering Automation Agent Analytics Platform"
+      
+      # Feature Flags for J4C
+      ENABLE_AI_INSIGHTS: true
+      ENABLE_REAL_TIME_UPDATES: true
+      ENABLE_EXPORT_FEATURES: true
+      ENABLE_USER_REGISTRATION: true
+      ENABLE_EMAIL_VERIFICATION: false
+      ENABLE_AUDIT_LOGGING: true
+      ENABLE_JIRA_SYNC: true
+      ENABLE_GITHUB_SYNC: true
+      
+      # Cache Configuration
+      CACHE_TTL_SECONDS: 300
+      ANALYTICS_CACHE_TTL: 600
+      AI_INSIGHTS_CACHE_TTL: 1800
+      JIRA_SYNC_INTERVAL: 300
+      
+      # Performance Configuration
+      MAX_REQUEST_SIZE: 10MB
+      REQUEST_TIMEOUT: 30
+      MAX_CONCURRENT_REQUESTS: 100
+      DB_POOL_SIZE: 20
+      
+      # WebSocket Configuration
+      WS_MAX_CONNECTIONS: 1000
+      WS_HEARTBEAT_INTERVAL: 30
+      WS_CONNECTION_TIMEOUT: 60
+      
+    volumes:
+      - ../dashboard-backend:/app
+      - j4c_backend_logs:/app/logs
+      - j4c_backend_data:/app/data
+    ports:
+      - "8001:8000"
+    networks:
+      - j4c-network
+    depends_on:
+      j4c-database:
+        condition: service_healthy
+      j4c-redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # J4C Frontend Dashboard
+  j4c-frontend:
+    build:
+      context: ..
+      dockerfile: docker-local/frontend/Dockerfile
+    container_name: j4c-frontend
+    restart: unless-stopped
+    environment:
+      # API Configuration for J4C
+      REACT_APP_API_BASE_URL: http://localhost:8001/api
+      REACT_APP_WEBSOCKET_URL: ws://localhost:8001/ws
+      
+      # Authentication for J4C
+      REACT_APP_GOOGLE_CLIENT_ID: ${J4C_GOOGLE_CLIENT_ID:-}
+      REACT_APP_GITHUB_CLIENT_ID: ${J4C_GITHUB_CLIENT_ID:-}
+      
+      # J4C Application Configuration
+      REACT_APP_ENVIRONMENT: development
+      REACT_APP_VERSION: 1.0.0
+      REACT_APP_ADMIN_EMAIL: subbu@aurigraph.io
+      REACT_APP_COMPANY_NAME: Aurigraph
+      REACT_APP_APP_NAME: "J4C Analytics Dashboard"
+      REACT_APP_SUPPORT_EMAIL: support@aurigraph.io
+      
+      # J4C Project Specific
+      REACT_APP_PROJECT_NAME: "Jeeves4coders"
+      REACT_APP_PROJECT_KEY: J4C
+      REACT_APP_PROJECT_DESCRIPTION: "Engineering Automation Agent Analytics"
+      
+      # Feature Flags for J4C
+      REACT_APP_ENABLE_AI_INSIGHTS: true
+      REACT_APP_ENABLE_REAL_TIME: true
+      REACT_APP_ENABLE_EXPORT: true
+      REACT_APP_ENABLE_USER_REGISTRATION: true
+      REACT_APP_ENABLE_GOOGLE_AUTH: true
+      REACT_APP_ENABLE_GITHUB_AUTH: true
+      REACT_APP_ENABLE_JIRA_INTEGRATION: true
+      REACT_APP_ENABLE_GITHUB_INTEGRATION: true
+      
+      # UI Configuration for J4C
+      REACT_APP_THEME_MODE: light
+      REACT_APP_PRIMARY_COLOR: "#1976d2"
+      REACT_APP_SECONDARY_COLOR: "#dc004e"
+      REACT_APP_DEFAULT_DASHBOARD: overview
+      REACT_APP_REFRESH_INTERVAL: 30000
+      REACT_APP_CHART_ANIMATION: true
+      
+      # Performance Configuration
+      REACT_APP_CACHE_DURATION: 300000
+      REACT_APP_API_TIMEOUT: 30000
+      REACT_APP_MAX_RETRIES: 3
+      
+      # J4C Integration Configuration
+      REACT_APP_JIRA_BASE_URL: https://instor.atlassian.net
+      REACT_APP_JIRA_PROJECT_KEY: J4C
+      REACT_APP_JIRA_BOARD_ID: 327
+      REACT_APP_GITHUB_ORG: Instoradmin
+      REACT_APP_GITHUB_REPO: Jeeves4coders
+      
+    ports:
+      - "3001:3000"
+    networks:
+      - j4c-network
+    depends_on:
+      - j4c-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # J4C Database Management (Adminer)
+  j4c-adminer:
+    image: adminer:latest
+    container_name: j4c-adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: j4c-database
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_PLUGINS: tables-filter tinymce
+    ports:
+      - "8082:8080"
+    networks:
+      - j4c-network
+    depends_on:
+      - j4c-database
+
+  # J4C Redis Management
+  j4c-redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: j4c-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: j4c:j4c-redis:6379:0:j4c_redis_2024
+      HTTP_USER: j4c_admin
+      HTTP_PASSWORD: j4c_admin_2024
+      PORT: 8081
+    ports:
+      - "8083:8081"
+    networks:
+      - j4c-network
+    depends_on:
+      - j4c-redis
+
+  # J4C Nginx Reverse Proxy
+  j4c-nginx:
+    image: nginx:alpine
+    container_name: j4c-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/j4c-nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - j4c-network
+    depends_on:
+      - j4c-frontend
+      - j4c-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# Networks
+networks:
+  j4c-network:
+    driver: bridge
+    name: j4c-engineering-automation-network
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Volumes
+volumes:
+  j4c_postgres_data:
+    name: j4c-postgres-data
+    driver: local
+  j4c_redis_data:
+    name: j4c-redis-data
+    driver: local
+  j4c_backend_logs:
+    name: j4c-backend-logs
+    driver: local
+  j4c_backend_data:
+    name: j4c-backend-data
+    driver: local

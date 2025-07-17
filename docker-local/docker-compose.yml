@@ -1,0 +1,281 @@
+# Engineering Automation Agent - Docker Compose Configuration
+# Complete local development environment with all services
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  database:
+    image: postgres:15-alpine
+    container_name: ea-database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: engineering_automation
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/backups:/backups
+    ports:
+      - "5432:5432"
+    networks:
+      - ea-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d engineering_automation"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: ea-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass redis123
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - ea-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ea-backend
+    restart: unless-stopped
+    environment:
+      # Database Configuration
+      DATABASE_URL: postgresql://postgres:postgres123@database:5432/engineering_automation
+      
+      # Redis Configuration
+      REDIS_URL: redis://:redis123@redis:6379/0
+      
+      # Authentication
+      JWT_SECRET_KEY: local-development-secret-key-change-in-production
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      
+      # Google OAuth2 (optional for local development)
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      
+      # GitHub OAuth2 (optional for local development)
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      
+      # Google AI Configuration
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+      
+      # JIRA Configuration
+      JIRA_BASE_URL: https://instor.atlassian.net
+      JIRA_EMAIL: subbu@instor.in
+      JIRA_API_TOKEN: ${JIRA_API_TOKEN:-}
+      JIRA_PROJECT_KEY: J4C
+      JIRA_BOARD_ID: 327
+      
+      # GitHub Integration
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_ORG: Instoradmin
+      GITHUB_REPO: Jeeves4coders
+      
+      # Application Configuration
+      ENVIRONMENT: development
+      DEBUG: true
+      LOG_LEVEL: info
+      
+      # CORS Configuration
+      ALLOWED_ORIGINS: '["http://localhost:3000","http://localhost:3001","http://frontend:3000"]'
+      ALLOWED_HOSTS: '["localhost","127.0.0.1","frontend","backend"]'
+      
+      # Cache Configuration
+      CACHE_TTL_SECONDS: 300
+      ANALYTICS_CACHE_TTL: 600
+      AI_INSIGHTS_CACHE_TTL: 1800
+      
+      # Feature Flags
+      ENABLE_AI_INSIGHTS: true
+      ENABLE_REAL_TIME_UPDATES: true
+      ENABLE_EXPORT_FEATURES: true
+      ENABLE_USER_REGISTRATION: true
+      ENABLE_EMAIL_VERIFICATION: false
+      ENABLE_AUDIT_LOGGING: true
+      
+      # Performance Configuration
+      MAX_REQUEST_SIZE: 10MB
+      REQUEST_TIMEOUT: 30
+      MAX_CONCURRENT_REQUESTS: 100
+      
+      # WebSocket Configuration
+      WS_MAX_CONNECTIONS: 1000
+      WS_HEARTBEAT_INTERVAL: 30
+      WS_CONNECTION_TIMEOUT: 60
+      
+      # Admin Configuration
+      ADMIN_EMAIL: subbu@aurigraph.io
+      ADMIN_USERNAME: subbu_admin
+      ADMIN_FULL_NAME: "Subbu Jois (Admin)"
+      
+    volumes:
+      - ./backend:/app
+      - backend_logs:/app/logs
+      - backend_data:/app/data
+    ports:
+      - "8000:8000"
+    networks:
+      - ea-network
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Dashboard
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ea-frontend
+    restart: unless-stopped
+    environment:
+      # API Configuration
+      REACT_APP_API_BASE_URL: http://localhost:8000/api
+      REACT_APP_WEBSOCKET_URL: ws://localhost:8000/ws
+      
+      # Authentication
+      REACT_APP_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      REACT_APP_GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      
+      # Application Configuration
+      REACT_APP_ENVIRONMENT: development
+      REACT_APP_VERSION: 1.0.0
+      REACT_APP_ADMIN_EMAIL: subbu@aurigraph.io
+      REACT_APP_COMPANY_NAME: Aurigraph
+      REACT_APP_APP_NAME: "Engineering Automation Agent"
+      REACT_APP_SUPPORT_EMAIL: support@aurigraph.io
+      
+      # Feature Flags
+      REACT_APP_ENABLE_AI_INSIGHTS: true
+      REACT_APP_ENABLE_REAL_TIME: true
+      REACT_APP_ENABLE_EXPORT: true
+      REACT_APP_ENABLE_USER_REGISTRATION: true
+      REACT_APP_ENABLE_GOOGLE_AUTH: true
+      REACT_APP_ENABLE_GITHUB_AUTH: true
+      
+      # UI Configuration
+      REACT_APP_THEME_MODE: light
+      REACT_APP_PRIMARY_COLOR: "#1976d2"
+      REACT_APP_SECONDARY_COLOR: "#dc004e"
+      REACT_APP_DEFAULT_DASHBOARD: overview
+      REACT_APP_REFRESH_INTERVAL: 30000
+      REACT_APP_CHART_ANIMATION: true
+      
+      # Performance Configuration
+      REACT_APP_CACHE_DURATION: 300000
+      REACT_APP_API_TIMEOUT: 30000
+      REACT_APP_MAX_RETRIES: 3
+      
+      # Integration Configuration
+      REACT_APP_JIRA_BASE_URL: https://instor.atlassian.net
+      REACT_APP_JIRA_PROJECT_KEY: J4C
+      REACT_APP_GITHUB_ORG: Instoradmin
+      REACT_APP_GITHUB_REPO: Jeeves4coders
+      
+    ports:
+      - "3000:3000"
+    networks:
+      - ea-network
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Nginx Reverse Proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: ea-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - ea-network
+    depends_on:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Adminer (Database Management)
+  adminer:
+    image: adminer:latest
+    container_name: ea-adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+      ADMINER_DESIGN: pepa-linha
+    ports:
+      - "8080:8080"
+    networks:
+      - ea-network
+    depends_on:
+      - database
+
+  # Redis Commander (Redis Management)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: ea-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379:0:redis123
+      HTTP_USER: admin
+      HTTP_PASSWORD: admin123
+    ports:
+      - "8081:8081"
+    networks:
+      - ea-network
+    depends_on:
+      - redis
+
+# Networks
+networks:
+  ea-network:
+    driver: bridge
+    name: engineering-automation-network
+
+# Volumes
+volumes:
+  postgres_data:
+    name: ea-postgres-data
+  redis_data:
+    name: ea-redis-data
+  backend_logs:
+    name: ea-backend-logs
+  backend_data:
+    name: ea-backend-data
